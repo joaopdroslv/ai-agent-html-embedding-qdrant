@@ -6,7 +6,7 @@ from app.embedding.embedding import generate_embedding_text
 from app.schemas.search_result import SearchResult
 
 
-async def get_rag_data(question: str) -> SearchResult:
+async def retrieve_rag_context(question: str) -> SearchResult:
     print(f"\n\n[INFO] Question:\n\n {question}")
 
     question_embedded = generate_embedding_text(question)
@@ -58,4 +58,4 @@ async def get_rag_data(question: str) -> SearchResult:
 if __name__ == "__main__":
     import asyncio
 
-    result = asyncio.run(get_rag_data("Why does the chameleon change color?"))
+    result = asyncio.run(retrieve_rag_context("Why does the chameleon change color?"))
