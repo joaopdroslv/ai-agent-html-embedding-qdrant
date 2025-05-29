@@ -1,0 +1,9 @@
+pydantic>=2.10.6
+pydantic-ai>=0.0.36
+python-dotenv>=1.0.1
+qdrant-client==1.14.2
+langchain-community==0.3.24
+docling==2.31.1
+sentence-transformers==4.1.0
+fastapi==0.115.12
+uvicorn==0.29.0
