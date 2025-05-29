@@ -9,7 +9,7 @@ router = APIRouter(prefix="/api/v1/chat", tags=["chat"])
 
 @router.post("/ask-question")
 async def ask_question(request: Question):
-    # This is a simpler operation, not yet integraed with an AI agent.
+    # This is a simpler operation, not yet integrated with an AI agent.
     result = await retrieve_rag_context(request.question)
     return JSONResponse(
         status_code=200,
