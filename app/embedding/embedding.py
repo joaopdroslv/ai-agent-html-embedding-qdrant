@@ -77,7 +77,7 @@ async def embedder(request_embedding: RequestEmbedding) -> None:
 
     await validate_qdrant_collection(COLLECTION_NAME)
 
-    # For now, let's pass the model directly to the function
+    # For now, let's pass the schema directly to this function
     # request_embedding = RequestEmbedding(**request)
 
     markdown_content, embedded_body = generate_embedding(request_embedding)
