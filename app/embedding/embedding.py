@@ -10,8 +10,14 @@ from app.schemas.request_embedding import RequestEmbedding
 
 
 def convert_html_to_markdown(html_content: str):
+    """Converts raw HTML content into Markdown using Docling."""
+
+    # Convert the HTML content to bytes
     html_bytes = html_content.encode("utf-8")
 
+    # Convert the bytes to a stream document, easier to docling process later,
+    # docling will read the document stream as a html file,
+    # even though it is just bytes in memory
     document_stream = DocumentStream(
         name="temp_document.html", stream=io.BytesIO(html_bytes)
     )
@@ -26,6 +32,8 @@ def convert_html_to_markdown(html_content: str):
 
 
 def generate_embedding(request: RequestEmbedding):
+    """Generates an embedding from HTML content after converting it to Markdown."""
+
     print(f"[INFO] Generating new embedding to: {request.title}")
 
     embeddings_model = HuggingFaceEmbeddings(
@@ -43,23 +51,29 @@ def generate_embedding(request: RequestEmbedding):
     return markdown_content, embedded_body
 
 
-async def validate_qdrant_collection():
+async def validate_qdrant_collection(collection_name: str) -> None:
+    """Checks if a Qdrant collection exists; creates it if it doesn't."""
+
     collections = qdrant_client.get_collections().collections
 
-    if not any(collection.name == COLLECTION_NAME for collection in collections):
+    if not any(collection.name == collection_name for collection in collections):
         qdrant_client.create_collection(
-            collection_name=COLLECTION_NAME,
+            collection_name=collection_name,
             vectors_config=VectorParams(size=1024, distance=Distance.COSINE),
         )
         print("[INFO] Collection created.")
+
     else:
         print("[INFO] Collection already exists.")
 
 
 # async def embedder(request: dict):
-async def embedder(request_embedding: RequestEmbedding):
-    await validate_qdrant_collection()
+async def embedder(request_embedding: RequestEmbedding) -> None:
+    """Generates and stores the embedding of a given document into Qdrant."""
 
+    await validate_qdrant_collection(COLLECTION_NAME)
+
+    # For now, let's pass the model directly to the function
     # request_embedding = RequestEmbedding(**request)
 
     markdown_content, embedded_body = generate_embedding(request_embedding)
@@ -83,7 +97,9 @@ async def embedder(request_embedding: RequestEmbedding):
     print(f"[INFO] Operation info:\n\n {operation_info}")
 
 
-def generate_embedding_text(text: str):
+def generate_embedding_text(text: str) -> str:
+    """Generates an embedding for a plain text input, such as a user question."""
+
     embeddings_model = HuggingFaceEmbeddings(
         model_name="intfloat/multilingual-e5-large",
         model_kwargs={"device": "cpu", "trust_remote_code": True},

@@ -1,13 +1,25 @@
 from pydantic_ai import RunContext  # Not context needed for now
-from qdrant_client.http.models import FieldCondition, Filter, MatchValue  # No filter needed for now
+from qdrant_client.http.models import (  # No filter needed for now
+    FieldCondition,
+    Filter,
+    MatchValue,
+)
 
 from app.db import COLLECTION_NAME, qdrant_client
 from app.embedding.embedding import generate_embedding_text
-from app.schemas.search_result import SearchResult
+from app.schemas.rag_context import RagContext
 
 
-async def retrieve_rag_context(question: str) -> SearchResult:
-    print(f"\n\n[INFO] Question:\n\n {question}")
+async def retrieve_rag_context(question: str) -> RagContext:
+    """
+    Retrieves relevant context for a given question using semantic search on a Qdrant vector database.
+
+    This function takes a user-provided question, generates its embedding, and performs a vector similarity
+    search against a Qdrant collection. If similar content is found above the defined score threshold,
+    the function extracts relevant topic IDs, titles, and content to build a RagContext object.
+    """
+
+    print(f"\n\n[INFO] User question:\n\n {question}")
 
     question_embedded = generate_embedding_text(question)
 
@@ -19,16 +31,20 @@ async def retrieve_rag_context(question: str) -> SearchResult:
         score_threshold=0.85,
     )
 
-    print(f"\n\n[INFO] Search results:\n\n {search_result}")
+    print(f"\n\n[INFO] Qdrant search results:\n\n {search_result}")
 
     if not search_result:
-        return SearchResult(
+        result = RagContext(
             has_results=False,
             list_of_topics_ids=[],
             list_of_topics_titles=[],
             formatted_contents=[],
             message="No related information found.",
         )
+
+        print(f"\n\n[INFO] Retrieved rag context:\n\n {result}")
+
+        return result
 
     topics = []
     topics_titles = []
@@ -42,7 +58,7 @@ async def retrieve_rag_context(question: str) -> SearchResult:
             topics_titles.append(item.payload["title"])  # Related topic title
             formatted_contents.append(item.payload["body"])  # Related topic content
 
-    result = SearchResult(
+    result = RagContext(
         has_results=len(topics) > 0,
         list_of_topics_ids=topics,
         list_of_topics_titles=topics_titles,
@@ -50,7 +66,7 @@ async def retrieve_rag_context(question: str) -> SearchResult:
         message="Related information found.",
     )
 
-    print(f"\n\n[INFO] Search result:\n\n {result}")
+    print(f"\n\n[INFO] Retrieved rag context:\n\n {result}")
 
     return result
 
