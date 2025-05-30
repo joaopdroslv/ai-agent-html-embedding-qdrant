@@ -45,6 +45,9 @@ def generate_embedding(request: RequestEmbedding) -> Tuple[str, List[float]]:
 
     markdown_content = convert_html_to_markdown(request.body)
 
+    # Lets concatenate the title with the body to facilitate the semantic search
+    markdown_content = f"# {request.title}\n\n{markdown_content}"
+
     print(f"[INFO] Generated markdown:\n\n {markdown_content}")
 
     embedded_body = embeddings_model.embed_query(markdown_content)
