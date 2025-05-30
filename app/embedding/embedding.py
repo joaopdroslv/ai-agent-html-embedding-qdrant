@@ -8,8 +8,10 @@ from qdrant_client.http.models import Distance, PointStruct, VectorParams
 from app.db import COLLECTION_NAME, qdrant_client
 from app.schemas.request_embedding import RequestEmbedding
 
+from typing import Tuple, List
 
-def convert_html_to_markdown(html_content: str):
+
+def convert_html_to_markdown(html_content: str) -> str:
     """Converts raw HTML content into Markdown using Docling."""
 
     # Convert the HTML content to bytes
@@ -31,7 +33,7 @@ def convert_html_to_markdown(html_content: str):
     return markdown_content
 
 
-def generate_embedding(request: RequestEmbedding):
+def generate_embedding(request: RequestEmbedding) -> Tuple[str, List[float]]:
     """Generates an embedding from HTML content after converting it to Markdown."""
 
     print(f"[INFO] Generating new embedding to: {request.title}")
@@ -97,7 +99,7 @@ async def embedder(request_embedding: RequestEmbedding) -> None:
     print(f"[INFO] Operation info:\n\n {operation_info}")
 
 
-def generate_embedding_text(text: str) -> str:
+def generate_embedding_text(text: str) -> List[float]:
     """Generates an embedding for a plain text input, such as a user question."""
 
     embeddings_model = HuggingFaceEmbeddings(

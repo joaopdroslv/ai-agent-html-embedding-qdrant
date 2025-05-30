@@ -5,7 +5,7 @@ from app.examples.examples import request_embedding_examples
 from app.schemas.request_embedding import RequestEmbedding
 
 
-async def disgest_documents(documents: List[RequestEmbedding]):
+async def disgest_documents(documents: List[RequestEmbedding]) -> None:
     """
     Processes and embeds a list of documents asynchronously.
 
