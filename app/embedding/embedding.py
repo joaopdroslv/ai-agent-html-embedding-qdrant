@@ -1,4 +1,5 @@
 import io
+from typing import List, Tuple
 
 from docling.document_converter import DocumentConverter
 from docling_core.types.io import DocumentStream
@@ -7,8 +8,6 @@ from qdrant_client.http.models import Distance, PointStruct, VectorParams
 
 from app.db import COLLECTION_NAME, qdrant_client
 from app.schemas.request_embedding import RequestEmbedding
-
-from typing import Tuple, List
 
 
 def convert_html_to_markdown(html_content: str) -> str:
