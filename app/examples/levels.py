@@ -1,5 +1,5 @@
-from app.schemas.user_level import UserLevel
 from app.enums.user_level import UserLevelEnum
+from app.schemas.user_level import UserLevel
 
 admin = UserLevel(
     id=UserLevelEnum.admin.value,

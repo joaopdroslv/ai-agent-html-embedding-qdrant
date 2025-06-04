@@ -7,11 +7,13 @@ from qdrant_client.http.models import (  # No filter needed for now
 
 from app.db import COLLECTION_NAME, qdrant_client
 from app.embedding.embedding import generate_embedding_text
-from app.schemas.rag_context import RagContext
 from app.schemas.chat import LevelContext
+from app.schemas.rag_context import RagContext
 
 
-async def retrieve_rag_context(ctx: RunContext[LevelContext], question: str) -> RagContext:
+async def retrieve_rag_context(
+    ctx: RunContext[LevelContext], question: str
+) -> RagContext:
     """
     Retrieves relevant context for a given question using semantic search on a Qdrant vector database.
 

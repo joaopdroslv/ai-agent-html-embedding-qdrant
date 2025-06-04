@@ -1,7 +1,7 @@
-from app.schemas.category import Category
-from app.schemas.request_embedding import RequestEmbedding
 from app.examples.categories import animals
 from app.examples.levels import *
+from app.schemas.category import Category
+from app.schemas.request_embedding import RequestEmbedding
 
 request_embeddings_examples = [
     RequestEmbedding(

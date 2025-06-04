@@ -2,9 +2,9 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic_ai import RunContext
 
+from app.agents.response_agent import response_agent
 from app.schemas.chat import *
 from app.tools.retrieve_rag_context import retrieve_rag_context
-from app.agents.response_agent import response_agent
 
 router = APIRouter(prefix="/api/v1", tags=["chat"])
 
@@ -36,7 +36,9 @@ async def rag_retrieve(request: ChatQuestion):
 @router.post("/chat")
 async def chat(request: ChatQuestion):
 
-    result = await response_agent.run(request.question, deps=LevelContext(level=request.level))
+    result = await response_agent.run(
+        request.question, deps=LevelContext(level=request.level)
+    )
 
     return JSONResponse(
         status_code=200,

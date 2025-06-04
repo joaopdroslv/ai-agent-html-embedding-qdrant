@@ -42,5 +42,5 @@ response_agent = Agent(
     2. Explain that there was a difficulty retrieving the information
     3. Suggest alternatives or ask if the user would like to try another question
     4. Add the tool you tried to use to the `tools_used` list, even if it failed
-    """
+    """,
 )
