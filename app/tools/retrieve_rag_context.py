@@ -30,14 +30,14 @@ async def retrieve_rag_context(
     search_result = qdrant_client.search(
         collection_name=COLLECTION_NAME,
         query_vector=question_embedded,
-        query_filter=Filter(
-            should=[
-                FieldCondition(
-                    key="levels[].id",
-                    match=MatchValue(value=ctx.deps.level),
-                ),
-            ]
-        ),
+        # query_filter=Filter(
+        #     should=[
+        #         FieldCondition(
+        #             key="levels[].id",
+        #             match=MatchValue(value=ctx.deps.level),
+        #         ),
+        #     ]
+        # ),
         limit=10,
         score_threshold=0.85,
     )
