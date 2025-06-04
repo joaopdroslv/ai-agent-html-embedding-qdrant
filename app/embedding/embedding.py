@@ -71,14 +71,10 @@ async def validate_qdrant_collection(collection_name: str) -> None:
         print("[INFO] Collection already exists.")
 
 
-# async def embedder(request: dict):
 async def embedder(request_embedding: RequestEmbedding) -> None:
     """Generates and stores the embedding of a given document into Qdrant."""
 
     await validate_qdrant_collection(COLLECTION_NAME)
-
-    # For now, let's pass the schema directly to this function
-    # request_embedding = RequestEmbedding(**request)
 
     markdown_content, embedded_body = generate_embedding(request_embedding)
 
@@ -86,7 +82,7 @@ async def embedder(request_embedding: RequestEmbedding) -> None:
     request_embedding_dict["embeddings"] = embedded_body
     request_embedding_dict["body"] = markdown_content
 
-    operation_info = qdrant_client.upsert(
+    qdrant_upsert_result = qdrant_client.upsert(
         collection_name=COLLECTION_NAME,
         wait=True,
         points=[
@@ -98,7 +94,7 @@ async def embedder(request_embedding: RequestEmbedding) -> None:
         ],
     )
 
-    print(f"[INFO] Operation info:\n\n {operation_info}")
+    print(f"[INFO] Qdrant upsert result:\n\n {qdrant_upsert_result}")
 
 
 def generate_embedding_text(text: str) -> List[float]:

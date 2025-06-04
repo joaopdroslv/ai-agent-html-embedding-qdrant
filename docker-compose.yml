@@ -9,6 +9,22 @@ services:
     depends_on:
       - qdrant
 
+  ollama:
+    build:
+      dockerfile: Dockerfile.ollama
+    container_name: ollama-qwen
+    ports:
+      - "11434:11434"
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+
   qdrant:
     image: qdrant/qdrant:v1.9.1
     container_name: qdrant

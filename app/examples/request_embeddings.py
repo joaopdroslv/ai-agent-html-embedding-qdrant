@@ -1,13 +1,9 @@
 from app.schemas.category import Category
 from app.schemas.request_embedding import RequestEmbedding
+from app.examples.categories import animals
+from app.examples.levels import *
 
-general_questions_category = Category(
-    id=1,
-    name="General Questions",
-    description="Questions about general topics.",
-)
-
-request_embedding_examples = [
+request_embeddings_examples = [
     RequestEmbedding(
         id=1,
         title="What are the most intelligent animals?",
@@ -25,7 +21,8 @@ request_embedding_examples = [
             <li>Communication skills</li>
         </ul>
         """,
-        categories=[general_questions_category],
+        categories=[animals],
+        levels=[admin, final_user, operational],
     ),
     RequestEmbedding(
         id=2,
@@ -39,7 +36,8 @@ request_embedding_examples = [
         <h2>Scientific Insight</h2>
         <p>Purring involves the rapid twitching of the laryngeal muscles, which controls the opening and closing of the space between the vocal cords.</p>
         """,
-        categories=[general_questions_category],
+        categories=[animals],
+        levels=[admin, final_user, operational],
     ),
     RequestEmbedding(
         id=3,
@@ -53,7 +51,8 @@ request_embedding_examples = [
         <h2>Amazing Journeys</h2>
         <p>Some birds, like the Arctic Tern, travel thousands of kilometers between the poles annually.</p>
         """,
-        categories=[general_questions_category],
+        categories=[animals],
+        levels=[admin, final_user, operational],
     ),
     RequestEmbedding(
         id=4,
@@ -67,7 +66,8 @@ request_embedding_examples = [
         <h2>Observing Dreams</h2>
         <p>It's common to see dogs twitching, making sounds, or moving their paws while dreaming.</p>
         """,
-        categories=[general_questions_category],
+        categories=[animals],
+        levels=[admin, final_user, operational],
     ),
     RequestEmbedding(
         id=5,
@@ -86,6 +86,7 @@ request_embedding_examples = [
             <li>Stress responses</li>
         </ul>
         """,
-        categories=[general_questions_category],
+        categories=[animals],
+        levels=[admin, final_user, operational],
     ),
 ]

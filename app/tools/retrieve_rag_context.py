@@ -8,9 +8,10 @@ from qdrant_client.http.models import (  # No filter needed for now
 from app.db import COLLECTION_NAME, qdrant_client
 from app.embedding.embedding import generate_embedding_text
 from app.schemas.rag_context import RagContext
+from app.schemas.chat import LevelContext
 
 
-async def retrieve_rag_context(question: str) -> RagContext:
+async def retrieve_rag_context(ctx: RunContext[LevelContext], question: str) -> RagContext:
     """
     Retrieves relevant context for a given question using semantic search on a Qdrant vector database.
 
@@ -20,13 +21,21 @@ async def retrieve_rag_context(question: str) -> RagContext:
     """
 
     print(f"\n\n[INFO] User question:\n\n {question}")
+    print(f"\n\n[INFO] User level: {ctx.deps.level}")
 
     question_embedded = generate_embedding_text(question)
 
     search_result = qdrant_client.search(
         collection_name=COLLECTION_NAME,
         query_vector=question_embedded,
-        # query_filter=Filter(should=[])  # No filter needed for now
+        query_filter=Filter(
+            should=[
+                FieldCondition(
+                    key="levels[].id",
+                    match=MatchValue(value=ctx.deps.level),
+                ),
+            ]
+        ),
         limit=10,
         score_threshold=0.85,
     )

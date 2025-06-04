@@ -1,7 +1,7 @@
 from typing import List
 
 from app.embedding.embedding import embedder
-from app.examples.examples import request_embedding_examples
+from app.examples.request_embeddings import request_embeddings_examples
 from app.schemas.request_embedding import RequestEmbedding
 
 
@@ -27,4 +27,4 @@ async def disgest_documents(documents: List[RequestEmbedding]) -> None:
 if __name__ == "__main__":
     import asyncio
 
-    asyncio.run(disgest_documents(request_embedding_examples))
+    asyncio.run(disgest_documents(request_embeddings_examples))
