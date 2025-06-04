@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
+from pydantic_ai import RunContext
 
 from app.schemas.chat import *
 from app.tools.retrieve_rag_context import retrieve_rag_context
@@ -9,10 +10,17 @@ router = APIRouter(prefix="/api/v1", tags=["chat"])
 
 
 @router.post("/rag-retrieve")
-async def rag_retrieve(request: RagRetrieve):
+async def rag_retrieve(request: ChatQuestion):
     # This is a simpler operation, not yet integrated with an AI agent.
 
-    result = await retrieve_rag_context(request.question)
+    context = RunContext(  # Dummy context
+        model="",
+        usage={},
+        prompt=request.question,
+        deps=LevelContext(level=request.level),
+    )
+
+    result = await retrieve_rag_context(context, request.question)
 
     return JSONResponse(
         status_code=200,

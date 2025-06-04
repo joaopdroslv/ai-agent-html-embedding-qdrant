@@ -5,7 +5,7 @@ from app.schemas.chat import LevelContext
 from app.tools.retrieve_rag_context import retrieve_rag_context
 
 response_agent = Agent(
-    model=local_qwen,
+    local_qwen,
     deps_type=LevelContext,
     tools=[retrieve_rag_context],
     system_prompt="""
