@@ -11,9 +11,10 @@ router = APIRouter(prefix="/api/v1", tags=["chat"])
 
 @router.post("/rag-retrieve")
 async def rag_retrieve(request: ChatQuestion):
-    # This is a simpler operation, not yet integrated with an AI agent.
+    # Performs semantic search using Qdrant without involving an AI agent
 
-    context = RunContext(  # Dummy context
+    # Create a minimal context object, since retrieve_rag_context expects access to ctx.deps.level
+    context = RunContext(
         model="",
         usage={},
         prompt=request.question,
