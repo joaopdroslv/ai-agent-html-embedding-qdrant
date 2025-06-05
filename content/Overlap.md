@@ -1,4 +1,4 @@
-# What Is Overlap in Embedding Spaces?
+## What Is Overlap in Embedding Spaces?
 
 In embedding space, **overlap** refers to the phenomenon there **different inputs are mapped to very similar or identical vectors**, making them **hard to distinguish** during similarity research.
 
@@ -10,7 +10,7 @@ This is **not ideal**, especially for tasks like:
 - Classification
 - Recommendation
 
-## Technical Cause of Overlap
+### Technical Cause of Overlap
 
 **Overlap usually happens when:**
 - **Embedding size is too small** -> limited space to encode nuances
@@ -18,7 +18,7 @@ This is **not ideal**, especially for tasks like:
 - **Training data is too generic or biased**
 - **Input data is noisy or ambiguous**
 
-## What Overlap Looks Like in Practice
+### What Overlap Looks Like in Practice
 
 Suppose you embed these two texts:
 ```txt
@@ -37,7 +37,7 @@ As a result, searching for **"how to train a puppy"** might return lasagna recip
 
 This is overlap in action.
 
-## How to Reduce Overlap
+### How to Reduce Overlap
 
 | **Strategy**               | **Description**                                      |
 |---------------------------|------------------------------------------------------|

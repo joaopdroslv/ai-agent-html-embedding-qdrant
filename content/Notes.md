@@ -1,4 +1,4 @@
-### Concepts
+## Concepts
 
 Core Qdrant concepts to learn and understand.
 

@@ -1,6 +1,6 @@
-# Embeddings Dimensions
+## Embeddings Dimensions
 
-## What Does "384D", "512D", etc. Mean?
+### What Does "384D", "512D", etc. Mean?
 
 These refer to the **number of dimensions** in the vector space - that is, the **length of the list of float numbers** that make up an embedding.
 
@@ -10,7 +10,7 @@ Example:
 vetor_384d = [0.123, -0.231, ..., 0.064]  # 384 float32 values
 ```
 
-## What Does Each Dimension Represent?
+### What Does Each Dimension Represent?
 
 Each dimension captures a **latent feature** learned by the model. These are not interpretable individually, but together, they capture the **semantic essence** of the input.
 
@@ -21,7 +21,7 @@ For example, in a sentence embedding:
 
 The **model learns these features** during training, and higher dimensionality gives it **more "room" to represent complexity**.
 
-## Why Use Larger Embeddings? (e.g., 768D, 1024D)
+### Why Use Larger Embeddings? (e.g., 768D, 1024D)
 
 Benefits:
 
@@ -36,7 +36,7 @@ Benefits:
 3. **Better Performance on Downstream Tasks**
 - For tasks like classification, ranking or retrieval, more dimensions often improve model accuracy - to a point.
 
-## Downsides of Large Embeddings
+### Downsides of Large Embeddings
 
 Cons:
 
