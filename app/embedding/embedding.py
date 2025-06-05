@@ -35,7 +35,7 @@ def convert_html_to_markdown(html_content: str) -> str:
 def generate_embedding(request: RequestEmbedding) -> Tuple[str, List[float]]:
     """Generates an embedding from HTML content after converting it to Markdown."""
 
-    print(f"[INFO] Generating new embedding to: {request.title}")
+    print(f'[INFO] Generating new embedding to: "{request.title}"')
 
     embeddings_model = HuggingFaceEmbeddings(
         model_name="intfloat/multilingual-e5-large",
@@ -65,10 +65,10 @@ async def validate_qdrant_collection(collection_name: str) -> None:
             collection_name=collection_name,
             vectors_config=VectorParams(size=1024, distance=Distance.COSINE),
         )
-        print("[INFO] Collection created.")
+        print("\n\n[INFO] Collection created.")
 
     else:
-        print("[INFO] Collection already exists.")
+        print("\n\n[INFO] Collection already exists.")
 
 
 async def embedder(request_embedding: RequestEmbedding) -> None:
@@ -94,7 +94,7 @@ async def embedder(request_embedding: RequestEmbedding) -> None:
         ],
     )
 
-    print(f"[INFO] Qdrant upsert result:\n\n {qdrant_upsert_result}")
+    print(f"\n\n[INFO] Qdrant upsert result:\n\n {qdrant_upsert_result}")
 
 
 def generate_embedding_text(text: str) -> List[float]:

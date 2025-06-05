@@ -1,14 +1,10 @@
-from pydantic_ai import RunContext  # Not context needed for now
-from qdrant_client.http.models import (  # No filter needed for now
-    FieldCondition,
-    Filter,
-    MatchValue,
-)
+from pydantic_ai import RunContext
+from qdrant_client.http.models import FieldCondition, Filter, MatchValue
 
 from app.db import COLLECTION_NAME, qdrant_client
 from app.embedding.embedding import generate_embedding_text
 from app.schemas.chat import LevelContext
-from app.schemas.rag_context import RagContext
+from app.schemas.rag_context import RagContext, SimilarityScore
 
 
 async def retrieve_rag_context(
@@ -27,19 +23,21 @@ async def retrieve_rag_context(
 
     question_embedded = generate_embedding_text(question)
 
+    # print(f"\n\n[INFO] Embbeded question: {question_embedded}")
+
     search_result = qdrant_client.search(
         collection_name=COLLECTION_NAME,
         query_vector=question_embedded,
-        # query_filter=Filter(
-        #     should=[
-        #         FieldCondition(
-        #             key="levels[].id",
-        #             match=MatchValue(value=ctx.deps.level),
-        #         ),
-        #     ]
-        # ),
+        query_filter=Filter(
+            should=[
+                FieldCondition(
+                    key="levels[].id",
+                    match=MatchValue(value=ctx.deps.level),
+                ),
+            ]
+        ),
         limit=10,
-        score_threshold=0.85,
+        score_threshold=0.80,
     )
 
     print(f"\n\n[INFO] Qdrant search results:\n\n {search_result}")
@@ -50,6 +48,7 @@ async def retrieve_rag_context(
             list_of_topics_ids=[],
             list_of_topics_titles=[],
             formatted_contents=[],
+            similarity_scores=[],
             message="No related information found.",
         )
 
@@ -60,6 +59,7 @@ async def retrieve_rag_context(
     topics = []
     topics_titles = []
     formatted_contents = []
+    similarity_scores = []
 
     for item in search_result:
 
@@ -68,12 +68,20 @@ async def retrieve_rag_context(
             topics.append(item.id)  # Related topic ID
             topics_titles.append(item.payload["title"])  # Related topic title
             formatted_contents.append(item.payload["body"])  # Related topic content
+            similarity_scores.append(
+                SimilarityScore(
+                    topic_id=item.id,
+                    topic_title=item.payload["title"],
+                    similarity_score=item.score,
+                )
+            )
 
     result = RagContext(
         has_results=len(topics) > 0,
         list_of_topics_ids=topics,
         list_of_topics_titles=topics_titles,
         formatted_contents=formatted_contents,
+        similarity_scores=similarity_scores,
         message="Related information found.",
     )
 

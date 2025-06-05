@@ -14,14 +14,16 @@ async def disgest_documents(documents: List[RequestEmbedding]) -> None:
     and logged without interrupting the loop.
     """
 
-    for doc in documents:
+    for document in documents:
         try:
-            print(f'[INFO] Digesting document ID [ {doc.id} ] | Title "{doc.title}"')
-            await embedder(doc)
-            print("[INFO] Document digested succesfully")
+            print(
+                f'\n\n[INFO] Digesting document:\n\n\tID [ {document.id} ]\n\tTitle "{document.title}"'
+            )
+            await embedder(document)
+            print("\n\n[INFO] Document digested succesfully")
 
         except Exception as e:
-            print(f'[ERROR] Error while Digesting: "{e}"')
+            print(f'\n\n[ERROR] Error while Digesting: "{e}"')
 
 
 if __name__ == "__main__":
