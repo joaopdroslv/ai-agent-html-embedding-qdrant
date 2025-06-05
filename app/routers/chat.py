@@ -1,14 +1,15 @@
 import json
+
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
-from pydantic_ai import RunContext
 from pydantic import ValidationError
+from pydantic_ai import RunContext
 
 from app.agents.answerer_agent import answerer_agent
 from app.db import COLLECTION_NAME, qdrant_client
+from app.schemas.answerer_agent_output import AnswererAgentOutput
 from app.schemas.chat import *
 from app.tools.retrieve_rag_context import retrieve_rag_context
-from app.schemas.answerer_agent_output import AnswererAgentOutput
 
 router = APIRouter(prefix="/api/v1", tags=["chat"])
 
@@ -81,7 +82,7 @@ async def chat(request: ChatQuestion) -> JSONResponse:
     except (json.JSONDecodeError, ValidationError):
         raise HTTPException(
             status_code=500,
-            detail="The agent returned an invalid or malformed JSON response."
+            detail="The agent returned an invalid or malformed JSON response.",
         )
 
     return JSONResponse(
