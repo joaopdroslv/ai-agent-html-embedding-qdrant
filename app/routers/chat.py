@@ -74,9 +74,6 @@ async def chat(request: ChatQuestion) -> JSONResponse:
         request.question, deps=LevelContext(level=request.level)
     )
 
-    if not hasattr(raw_result, "output"):
-        raise HTTPException(status_code=500, detail="Agent did not return a valid output.")
-
     try:
         result_dict = json.loads(raw_result.output)
         result = AnswererAgentOutput(**result_dict)
@@ -85,12 +82,6 @@ async def chat(request: ChatQuestion) -> JSONResponse:
         raise HTTPException(
             status_code=500,
             detail="The agent returned an invalid or malformed JSON response."
-        )
-
-    except (json.JSONDecodeError, ValidationError):
-        raise HTTPException(
-            status_code=500,
-            detail="The agent returned an invalid JSON response."
         )
 
     return JSONResponse(
