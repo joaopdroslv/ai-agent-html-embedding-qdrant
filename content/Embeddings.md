@@ -1,8 +1,6 @@
-# Qdrant: Deep-Dive Into Core Concepts
+# Embeddings
 
-## Embeddings
-
-### What are they?
+What are they?
 
 An **embedding** is a **vetorized numerical representation** of some raw data - most commonly text, but also **images, audio**, etc. The goal of embeddings is to place semantically similar data close together in **high-dimensional space**,.
 
