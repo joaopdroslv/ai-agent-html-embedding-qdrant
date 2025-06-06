@@ -1,6 +1,6 @@
 from typing import List
 
-from app.embedding.embedding import embedder
+from app.modules.embedder import embed_n_insert_into_qdrant
 from app.examples.request_embeddings import request_embeddings_examples
 from app.schemas.request_embedding import RequestEmbedding
 
@@ -19,7 +19,7 @@ async def disgest_documents(documents: List[RequestEmbedding]) -> None:
             print(
                 f'\n\n[INFO] Digesting document:\n\n\tID [ {document.id} ]\n\tTitle "{document.title}"'
             )
-            await embedder(document)
+            await embed_n_insert_into_qdrant(document)
             print("\n\n[INFO] Document digested succesfully")
 
         except Exception as e:

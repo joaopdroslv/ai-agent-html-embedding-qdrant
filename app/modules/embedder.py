@@ -3,10 +3,11 @@ from typing import List, Tuple
 
 from docling.document_converter import DocumentConverter
 from docling_core.types.io import DocumentStream
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from qdrant_client.http.models import Distance, PointStruct, VectorParams
+from qdrant_client.http.models import PointStruct
 
 from app.db import COLLECTION_NAME, qdrant_client
+from app.models.embedding_model import embeddings_model
+from app.modules.qdrant import validate_qdrant_collection
 from app.schemas.request_embedding import RequestEmbedding
 
 
@@ -37,12 +38,6 @@ def generate_embedding(request: RequestEmbedding) -> Tuple[str, List[float]]:
 
     print(f'[INFO] Generating new embedding to: "{request.title}"')
 
-    embeddings_model = HuggingFaceEmbeddings(
-        model_name="intfloat/multilingual-e5-large",
-        model_kwargs={"device": "cpu", "trust_remote_code": True},
-        encode_kwargs={"normalize_embeddings": True},
-    )
-
     markdown_content = convert_html_to_markdown(request.body)
 
     # Lets concatenate the title with the body to facilitate the semantic search
@@ -55,23 +50,7 @@ def generate_embedding(request: RequestEmbedding) -> Tuple[str, List[float]]:
     return markdown_content, embedded_body
 
 
-async def validate_qdrant_collection(collection_name: str) -> None:
-    """Checks if a Qdrant collection exists; creates it if it doesn't."""
-
-    collections = qdrant_client.get_collections().collections
-
-    if not any(collection.name == collection_name for collection in collections):
-        qdrant_client.create_collection(
-            collection_name=collection_name,
-            vectors_config=VectorParams(size=1024, distance=Distance.COSINE),
-        )
-        print("\n\n[INFO] Collection created.")
-
-    else:
-        print("\n\n[INFO] Collection already exists.")
-
-
-async def embedder(request_embedding: RequestEmbedding) -> None:
+async def embed_n_insert_into_qdrant(request_embedding: RequestEmbedding) -> None:
     """Generates and stores the embedding of a given document into Qdrant."""
 
     await validate_qdrant_collection(COLLECTION_NAME)
@@ -82,7 +61,7 @@ async def embedder(request_embedding: RequestEmbedding) -> None:
     request_embedding_dict["embeddings"] = embedded_body
     request_embedding_dict["body"] = markdown_content
 
-    qdrant_upsert_result = qdrant_client.upsert(
+    upsert_result = qdrant_client.upsert(
         collection_name=COLLECTION_NAME,
         wait=True,
         points=[
@@ -94,16 +73,4 @@ async def embedder(request_embedding: RequestEmbedding) -> None:
         ],
     )
 
-    print(f"\n\n[INFO] Qdrant upsert result:\n\n {qdrant_upsert_result}")
-
-
-def generate_embedding_text(text: str) -> List[float]:
-    """Generates an embedding for a plain text input, such as a user question."""
-
-    embeddings_model = HuggingFaceEmbeddings(
-        model_name="intfloat/multilingual-e5-large",
-        model_kwargs={"device": "cpu", "trust_remote_code": True},
-        encode_kwargs={"normalize_embeddings": True},
-    )
-
-    return embeddings_model.embed_query(text)
+    print(f"\n\n[INFO] Upsert result:\n\n {upsert_result}")

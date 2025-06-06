@@ -2,7 +2,7 @@ from pydantic_ai import RunContext
 from qdrant_client.http.models import FieldCondition, Filter, MatchValue
 
 from app.db import COLLECTION_NAME, qdrant_client
-from app.embedding.embedding import generate_embedding_text
+from app.models.embedding_model import embeddings_model
 from app.schemas.chat import LevelContext
 from app.schemas.rag_context import RagContext, SimilarityScore
 
@@ -21,7 +21,7 @@ async def retrieve_rag_context(
     print(f"\n\n[INFO] User question:\n\n {question}")
     print(f"\n\n[INFO] User level: {ctx.deps.level}")
 
-    question_embedded = generate_embedding_text(question)
+    question_embedded = embeddings_model.embed_query(question)
 
     # print(f"\n\n[INFO] Embbeded question: {question_embedded}")
 
