@@ -1,9 +1,9 @@
 from typing import List
 
 from app.db import COLLECTION_NAME, qdrant_client
+from app.schemas.article import Article, ArticleBase
 from app.schemas.category import Category
 from app.schemas.user_level import UserLevel
-from app.schemas.article import ArticleBase, Article
 
 
 def get_all_embeddings_as_dicts() -> List[dict]:
@@ -33,7 +33,9 @@ def get_all_embeddings_articles() -> List[ArticleBase]:
     all_points, _ = qdrant_client.scroll(
         collection_name=COLLECTION_NAME, with_vectors=False, with_payload=True
     )
-    articles = [ArticleBase(id=point.id, title=point.payload["title"]) for point in all_points]
+    articles = [
+        ArticleBase(id=point.id, title=point.payload["title"]) for point in all_points
+    ]
     return articles
 
 

@@ -2,10 +2,10 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
 from app.modules.embeddings import (
+    get_all_embeddings_articles,
     get_all_embeddings_as_dicts,
     get_all_embeddings_categories,
     get_all_embeddings_levels,
-    get_all_embeddings_articles,
 )
 from app.responses import response_error, response_success
 
