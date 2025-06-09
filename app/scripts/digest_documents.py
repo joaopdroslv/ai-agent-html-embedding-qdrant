@@ -1,7 +1,7 @@
 from typing import List
 
-from app.modules.embedder import embed_n_insert_into_qdrant
 from app.examples.request_embeddings import request_embeddings_examples
+from app.modules.embedder import embed_n_insert_into_qdrant
 from app.schemas.request_embedding import RequestEmbedding
 
 

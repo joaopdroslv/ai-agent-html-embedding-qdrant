@@ -1,6 +1,6 @@
-from qdrant_client.http.models import Distance, PointStruct, VectorParams
+from qdrant_client.http.models import Distance, VectorParams
 
-from app.db import COLLECTION_NAME, qdrant_client
+from app.db import qdrant_client
 
 
 async def validate_qdrant_collection(collection_name: str) -> None:
