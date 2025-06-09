@@ -7,90 +7,11 @@
 	},
 	"item": [
 		{
-			"name": "Rag Retrieve",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    // \"question\": \"Why does the chameleon change color?\"\r\n    \"question\": \"I want to know more about migratory birds!\",\r\n    // \"question\": \"Birds!\",\r\n    \"level\": 99\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/v1/rag-retrieve",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"rag-retrieve"
-					]
-				}
-			},
-			"response": [
+			"name": "Chat",
+			"item": [
 				{
-					"name": "success",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    // \"question\": \"Why does the chameleon change color?\"\r\n    \"question\": \"I want to know more about birds migration!\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/chat/ask-question",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"chat",
-								"ask-question"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "date",
-							"value": "Thu, 29 May 2025 18:16:59 GMT"
-						},
-						{
-							"key": "server",
-							"value": "uvicorn"
-						},
-						{
-							"key": "content-length",
-							"value": "527"
-						},
-						{
-							"key": "content-type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"code\": 200,\n    \"message\": \"success\",\n    \"result\": {\n        \"has_results\": true,\n        \"list_of_topics_ids\": [\n            3\n        ],\n        \"list_of_topics_titles\": [\n            \"How do migratory birds navigate?\"\n        ],\n        \"formatted_contents\": [\n            \"# Migration Navigation\\n\\n## Bird Migration\\n\\nBirds migrate long distances to find better climates or breeding grounds. They navigate using the sun, stars, Earth's magnetic field, and landmarks.\\n\\n## Amazing Journeys\\n\\nSome birds, like the Arctic Tern, travel thousands of kilometers between the poles annually.\"\n        ],\n        \"message\": \"Related information found.\"\n    }\n}"
-				},
-				{
-					"name": "success",
-					"originalRequest": {
+					"name": "Rag Retrieve",
+					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -103,90 +24,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/rag-retrieve",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"rag-retrieve"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "date",
-							"value": "Thu, 05 Jun 2025 14:18:28 GMT"
-						},
-						{
-							"key": "server",
-							"value": "uvicorn"
-						},
-						{
-							"key": "content-length",
-							"value": "735"
-						},
-						{
-							"key": "content-type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"code\": 200,\n    \"message\": \"success\",\n    \"question\": \"I want to know more about migratory birds!\",\n    \"result\": {\n        \"has_results\": true,\n        \"list_of_topics_ids\": [\n            3\n        ],\n        \"list_of_topics_titles\": [\n            \"How do migratory birds navigate?\"\n        ],\n        \"formatted_contents\": [\n            \"# How do migratory birds navigate?\\n\\n# Migration Navigation\\n\\n## Bird Migration\\n\\nBirds migrate long distances to find better climates or breeding grounds. They navigate using the sun, stars, Earth's magnetic field, and landmarks.\\n\\n## Amazing Journeys\\n\\nSome birds, like the Arctic Tern, travel thousands of kilometers between the poles annually.\"\n        ],\n        \"similarity_scores\": [\n            {\n                \"topic_id\": 3,\n                \"topic_title\": \"How do migratory birds navigate?\",\n                \"similarity_score\": 0.833038\n            }\n        ],\n        \"message\": \"Related information found.\"\n    }\n}"
-				}
-			]
-		},
-		{
-			"name": "Chat",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    // \"question\": \"Why does the chameleon change color?\"\r\n    \"question\": \"I want to know more about birds migration!\",\r\n    \"level\": 99\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/v1/chat",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"chat"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "success",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    // \"question\": \"Why does the chameleon change color?\"\r\n    \"question\": \"I want to know more about birds migration!\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/chat/ask-question",
+							"raw": "http://localhost:8080/api/v1/chat/rag-retrieve",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -196,37 +34,15 @@
 								"api",
 								"v1",
 								"chat",
-								"ask-question"
+								"rag-retrieve"
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "date",
-							"value": "Thu, 29 May 2025 18:16:59 GMT"
-						},
-						{
-							"key": "server",
-							"value": "uvicorn"
-						},
-						{
-							"key": "content-length",
-							"value": "527"
-						},
-						{
-							"key": "content-type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"code\": 200,\n    \"message\": \"success\",\n    \"result\": {\n        \"has_results\": true,\n        \"list_of_topics_ids\": [\n            3\n        ],\n        \"list_of_topics_titles\": [\n            \"How do migratory birds navigate?\"\n        ],\n        \"formatted_contents\": [\n            \"# Migration Navigation\\n\\n## Bird Migration\\n\\nBirds migrate long distances to find better climates or breeding grounds. They navigate using the sun, stars, Earth's magnetic field, and landmarks.\\n\\n## Amazing Journeys\\n\\nSome birds, like the Arctic Tern, travel thousands of kilometers between the poles annually.\"\n        ],\n        \"message\": \"Related information found.\"\n    }\n}"
+					"response": []
 				},
 				{
-					"name": "success",
-					"originalRequest": {
+					"name": "Ask",
+					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -239,7 +55,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/chat",
+							"raw": "http://localhost:8080/api/v1/chat/ask",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -248,33 +64,82 @@
 							"path": [
 								"api",
 								"v1",
-								"chat"
+								"chat",
+								"ask"
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "date",
-							"value": "Thu, 05 Jun 2025 14:58:04 GMT"
-						},
-						{
-							"key": "server",
-							"value": "uvicorn"
-						},
-						{
-							"key": "content-length",
-							"value": "563"
-						},
-						{
-							"key": "content-type",
-							"value": "application/json"
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Embeddings",
+			"item": [
+				{
+					"name": "Get Embeddings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/embeddings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"embeddings"
+							]
 						}
-					],
-					"cookie": [],
-					"body": "{\n    \"code\": 200,\n    \"message\": \"success\",\n    \"question\": \"I want to know more about birds migration!\",\n    \"result\": {\n        \"answer\": \"Migratory birds use a combination of celestial cues like the sun and stars, as well as Earth's magnetic field and landmarks to navigate during their long-distance travels. These journeys can span thousands of kilometers, such as in the case of the Arctic Tern which migrates between the poles annually.\",\n        \"has_related_topics\": true,\n        \"list_of_topics_ids\": [\n            3\n        ],\n        \"list_of_topics_titles\": [\n            \"How do migratory birds navigate?\"\n        ],\n        \"tools_used\": [\n            \"retrieve_rag_context\"\n        ]\n    }\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Articles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/embeddings/titles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"embeddings",
+								"titles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Filters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/embeddings/filters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"embeddings",
+								"filters"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -295,112 +160,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "success",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								""
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "date",
-							"value": "Thu, 29 May 2025 18:09:13 GMT"
-						},
-						{
-							"key": "server",
-							"value": "uvicorn"
-						},
-						{
-							"key": "content-length",
-							"value": "29"
-						},
-						{
-							"key": "content-type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"message\": \"API is running.\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Embeddings",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/v1/embeddings",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"embeddings"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "success",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								""
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "date",
-							"value": "Thu, 29 May 2025 18:09:13 GMT"
-						},
-						{
-							"key": "server",
-							"value": "uvicorn"
-						},
-						{
-							"key": "content-length",
-							"value": "29"
-						},
-						{
-							"key": "content-type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"message\": \"API is running.\"\n}"
-				}
-			]
+			"response": []
 		}
 	]
 }
