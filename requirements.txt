@@ -7,4 +7,4 @@ docling==2.31.1
 sentence-transformers==4.1.0
 fastapi==0.115.12
 uvicorn==0.29.0
-openai
+openai==1.86.0
